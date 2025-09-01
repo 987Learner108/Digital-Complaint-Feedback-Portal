@@ -30,7 +30,7 @@ app.use("/api/admin", require("./routes/adminRoutes"));
 app.use("/api/feedback", require("./routes/feedbackRoutes"));
 
 // Serve frontend
-const frontendPath = path.join(__dirname, "../DigitalComplaint/dist");
+const frontendPath = path.join(__dirname, "dist"); // Frontend build directory after build
 app.use(express.static(frontendPath));
 
 app.get("*", (req, res) => {

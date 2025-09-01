@@ -6,7 +6,7 @@ yarn-error.log
 pnpm-debug.log
 
 # Build outputs
-dist/
+/backend/dist/
 build/
 .cache/
 
@@ -16,6 +16,7 @@ logs
 
 # Environment files (do not commit secrets!)
 .env
+/backend/.env
 .env.*.local
 
 # Editor / system files

@@ -35,6 +35,8 @@ exports.submitComplaint = async (req, res) => {
   try {
     const { title, description, category, department, assignTo, isAnonymous } = req.body;
 
+    console.log("req.file:", req.file);
+
     // Generate a unique 5-digit complaint ID
     let complaintId;
     let isUnique = false;

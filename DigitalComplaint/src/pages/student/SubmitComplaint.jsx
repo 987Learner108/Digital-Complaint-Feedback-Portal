@@ -18,6 +18,7 @@ const SubmitComplaint = ({ editData = null, onComplaintUpdate, onCancelEdit }) =
 
   const [errors, setErrors] = useState({});
   const [isEditMode, setIsEditMode] = useState(false);
+  const [submitting, setSubmitting] = useState(false); // New state for submission status
 
   useEffect(() => {
     if (editData) {
@@ -74,7 +75,9 @@ const SubmitComplaint = ({ editData = null, onComplaintUpdate, onCancelEdit }) =
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!validateForm()) return;
+    if (!validateForm() || submitting) return; // Disable submission if already submitting
+
+    setSubmitting(true); // Set submitting to true
 
     try {
       const token = localStorage.getItem("token");
@@ -99,6 +102,8 @@ const SubmitComplaint = ({ editData = null, onComplaintUpdate, onCancelEdit }) =
     } catch (err) {
       console.error(err);
       alert("Failed to submit complaint. Please try again.");
+    } finally {
+      setSubmitting(false); // Reset submitting state after submission attempt
     }
   };
 
@@ -163,7 +168,9 @@ const SubmitComplaint = ({ editData = null, onComplaintUpdate, onCancelEdit }) =
         </div>
 
         <div className="form-buttons">
-          <button type="submit">{isEditMode ? "Update Complaint" : "Submit Complaint"}</button>
+          <button type="submit" disabled={submitting}> {/* Disable button when submitting */}
+            {isEditMode ? "Update Complaint" : (submitting ? "Submitting..." : "Submit Complaint")}
+          </button>
           {isEditMode ? (
             <button type="button" onClick={onCancelEdit} className="cancel-btn">Cancel</button>
           ) : (
