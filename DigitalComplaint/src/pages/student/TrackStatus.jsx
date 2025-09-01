@@ -2,6 +2,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import './TrackStatus.css';
+import API from '../../services/api'; // Import the API instance
 
 const TrackStatus = () => {
   const [complaintId, setComplaintId] = useState('');
@@ -18,7 +19,7 @@ const TrackStatus = () => {
     }
 
     try {
-      const res = await axios.get(`http://localhost:5000/api/track/${complaintId}`);
+      const res = await API.get(`/track/${complaintId}`); // Use API instance for relative path
       setCurrentComplaint(res.data);
       setError('');
     } catch (err) {

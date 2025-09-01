@@ -5,7 +5,7 @@ exports.trackComplaintById = async (req, res) => {
   try {
     const { complaintId } = req.params;
 
-    const complaint = await Complaint.findOne({ complaintId });
+    const complaint = await Complaint.findOne({ complaintId }).populate("user", "name email").select("+attachment");
 
     if (!complaint) {
       return res.status(404).json({ message: "Complaint not found" });
